@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  lastname  String
+  email     String   @unique
+  level     Int      @default(1)
+  xp        Int      @default(0)
+  coins     Int      @default(0)
+  dailyStreak Int    @default(0)
+  completedQuests Int @default(0)
+  badges    Json
+  earnedBadges Json?
+  lastStreakAt DateTime?
+  lastLoginAt  DateTime?
+  lastQuestCompletionAt DateTime?
+  quests    Quest[]
+}
+
+enum Frequency {
+  DAILY
+  WEEKLY
+  ONCE
+}
+
+model Quest {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  description String
+  frequency   Frequency
+  dueAt       DateTime?
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  xp          Int       @default(50)
+  coins       Int       @default(10)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+}
+
