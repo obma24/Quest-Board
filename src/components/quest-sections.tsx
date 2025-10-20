@@ -219,7 +219,7 @@ export default function QuestSections({ userId }: Props) {
 
   function loadFireworksLib(): Promise<void> {
     return new Promise((resolve) => {
-      if (typeof window !== "undefined" && (window as unknown as { Fireworks?: new (...args: unknown[]) => any }).Fireworks) return resolve();
+      if (typeof window !== "undefined" && (window as unknown as { Fireworks?: new (...args: unknown[]) => unknown }).Fireworks) return resolve();
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/fireworks-js@2.10.6/dist/index.umd.js";
       s.async = true;
