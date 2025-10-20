@@ -208,7 +208,7 @@ export default function QuestSections({ userId }: Props) {
 
   function loadConfetti(): Promise<void> {
     return new Promise((resolve) => {
-      if (typeof window !== "undefined" && (window as any).confetti) return resolve();
+      if (typeof window !== "undefined" && (window as unknown as { confetti?: (opts: Record<string, unknown>) => void }).confetti) return resolve();
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js";
       s.async = true;
@@ -219,7 +219,7 @@ export default function QuestSections({ userId }: Props) {
 
   function loadFireworksLib(): Promise<void> {
     return new Promise((resolve) => {
-      if (typeof window !== "undefined" && (window as any).Fireworks) return resolve();
+      if (typeof window !== "undefined" && (window as unknown as { Fireworks?: new (...args: unknown[]) => any }).Fireworks) return resolve();
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/npm/fireworks-js@2.10.6/dist/index.umd.js";
       s.async = true;
@@ -237,7 +237,7 @@ export default function QuestSections({ userId }: Props) {
     })();
     if (selected === "realfireworks") {
       await loadFireworksLib();
-      const FW = (window as any).Fireworks;
+      const FW = (window as unknown as { Fireworks?: new (container: HTMLElement, options?: Record<string, unknown>) => { start: () => void; stop: () => void } }).Fireworks;
       if (FW) {
         const container = document.createElement("div");
         container.style.position = "fixed";
@@ -278,9 +278,8 @@ export default function QuestSections({ userId }: Props) {
     if (selected === "emoji") {
       const end = Date.now() + 1000;
       (function frame() {
-        confetti({ particleCount: 12, spread: 55, scalar: 1.2, shapes: ["circle"], ticks: 100, origin: { y: 0.1 },
-          // canvas-confetti supports emojis via 'emojis' in newer versions; fallback to colored circles
-        } as any);
+        // Fallback to colored circles; if using an extended build, we could add emojis via `emojis: [...]`
+        confetti({ particleCount: 12, spread: 55, scalar: 1.2, shapes: ["circle"], ticks: 100, origin: { y: 0.1 } });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
       return;
@@ -508,7 +507,7 @@ function EditQuestForm({ quest, onClose }: { quest: Quest; onClose: () => void }
       <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="w-full h-11 rounded-xl border border-gray-300 px-3 bg-white text-gray-900" />
       <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="w-full rounded-xl border border-gray-300 px-3 py-2 bg-white h-24 text-gray-900" />
       <div className="grid grid-cols-2 gap-3">
-        <select value={frequency} onChange={(e) => setFrequency(e.target.value as any)} className="h-11 rounded-xl border border-gray-300 px-3 bg-white text-gray-900">
+        <select value={frequency} onChange={(e) => setFrequency(e.target.value as "DAILY" | "WEEKLY" | "ONCE")} className="h-11 rounded-xl border border-gray-300 px-3 bg-white text-gray-900">
           <option value="DAILY">Daily</option>
           <option value="WEEKLY">Weekly</option>
           <option value="ONCE">One time</option>

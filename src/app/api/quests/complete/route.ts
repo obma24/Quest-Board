@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
   const { questId, userId } = await req.json();
@@ -67,7 +68,7 @@ export async function POST(req: NextRequest) {
         dailyStreak: streak,
         lastStreakAt: now,
         lastQuestCompletionAt: now,
-        earnedBadges: earned as unknown as any,
+        earnedBadges: earned as unknown as Prisma.InputJsonValue,
       },
     });
   }
