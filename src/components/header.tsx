@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "./logo";
 
 type UserInfo = { name: string; email: string; coins?: number } | null;
 
@@ -100,7 +101,9 @@ async function loadCoins(userId: string) {
 return (
     <header className="w-full border-b border-gray-200 bg-white px-4 sm:px-6 md:px-8 h-16 flex items-center relative z-50">
     <div className="mx-auto w-full max-w-7xl flex items-center justify-between">
-        <Link href="/" className="text-xl sm:text-2xl font-semibold tracking-wide text-[#FFCD16]">QUESTBOARD</Link>
+        <Link href="/">
+          <Logo />
+        </Link>
         {!user ? (
         <div className="flex gap-3">
             <Link href="/signup" className="px-4 py-2 rounded-xl bg-gray-900 text-white text-sm">Get Started</Link>

@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QuestBoard – Turn Your Tasks Into Quests
 
-## Getting Started
+**QuestBoard** is a webb-application that transforms everyday task into an game-like quest application.  
+Built with **Next.js** and **Supabase**, it combines quests, XP, coins, streaks, and badges into a fun, motivational app.
 
-First, run the development server:
+**Live Demo:** [https://questboard.it.com/](https://questboard.it.com/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+QuestBoard gamifies personal productivity through a quest-based task management system.  
+Users complete **daily**, **weekly**, and **one-time** quests to earn **XP**, **coins**, and **badges**, which can be used to **customize avatars** and unlock **celebration animations**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Core Features
 
-To learn more about Next.js, take a look at the following resources:
+### Quest Management System
+- **Quest Types:** Daily, weekly, and one-time quests with automatic recurrence  
+- **Smart Scheduling:** Upcoming quests appear in advance  
+- **Deadline Warnings:** Alerts for quests due soon (within 2 hours)  
+- **Quest History:** Collapsible sections for "Today", "Yesterday", and "Last Week"  
+- **Quest Editing:** Edit quests directly via modal interface  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Gamification & Progression
+- **XP System:** Gain experience to level up  
+- **Coin Economy:** Earn and spend coins in the shop  
+- **Daily Streaks:** Maintain login streaks for bonuses  
+- **Badge System:** Unlock badges like “7-day-streak” and “10-quests”  
+- **Activity Dashboard:** Visualize your quest and login history  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Shop & Customization
+- **Avatars:** DiceBear-generated with custom ring designs  
+- **Celebration Animations:** Buy confetti, fireworks, emoji rain, and more  
+- **Ownership Tracking:** Persistent items stored via local storage  
+- **Default Avatar:** Automatically assigned to new users  
 
-## Deploy on Vercel
+### UX & Visuals
+- **Responsive Design:** Mobile-first, with desktop sidebar  
+- **Animations:** Canvas confetti, fireworks, and particle effects  
+- **Live Updates:** Real-time XP and coin updates  
+- **Progress Bars:** Visual feedback for task progress and streaks  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technical Architecture
+
+### Frontend
+- [Next.js](https://nextjs.org/) with App Router  
+- [TypeScript](https://www.typescriptlang.org/) for strict typing  
+- [Tailwind CSS](https://tailwindcss.com/) for utility-first styling  
+- [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti) & Fireworks.js for animations  
+- [React Hooks](https://react.dev/reference/react) for state and lifecycle logic  
+
+### Backend & Database
+- [Supabase](https://supabase.com/) for authentication and real-time syncing  
+- [PostgreSQL](https://www.postgresql.org/) as main database  
+- [Prisma ORM](https://www.prisma.io/) for database modeling
+- RESTful API routes for quests, users, and shop operations  
+
+---
+
+## Database Schema
+
+| Model | Description |
+|-------|--------------|
+| **User** | Stores profile info, XP, coins, level, streaks, and badges |
+| **Quest** | Details each quest: title, type, due date, completion, and reward |
+
+---
+
+## Key Technical Highlights
+
+- **Real-time Updates:** Event-driven state management  
+- **Optimistic UI:** Instant updates while syncing in background  
+- **Connection Pooling:** Efficient database performance  
+- **Type Safety:** End-to-end through TypeScript and Prisma  
+- **Production Deployment:** Optimized builds on Vercel  
+
+---
+
+## Authentication
+
+- Supabase handles signup, login, and session management  
+- On first login, a default profile and avatar are generated automatically  
+
+---
+
+## User Flow
+
+1. **Login / Signup** → Supabase auth  
+2. **Create Quests** → Choose type and schedule  
+3. **Complete Tasks** → Earn XP and coins  
+4. **View Dashboard** → See streaks and quest history  
+5. **Spend Coins** → Buy avatars or celebration animations in the Shop  
+
+---
+
+## Deployment
+
+- **Platform:** [Vercel](https://vercel.com)  
+- **Production URL:** [https://questboard.it.com](https://questboard.it.com)  
+- **Build Command:** `npm run build`  
+- **Start Command:** `npm start`  
