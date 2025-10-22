@@ -61,7 +61,7 @@ export default function QuestList({ userId }: Props) {
           <div>
             <div className={`font-medium ${q.completed ? "text-green-700" : ""}`}>{q.title}</div>
             <div className="text-sm text-gray-600">{q.description}</div>
-            <div className="text-xs text-gray-500 mt-1">{q.frequency}{q.dueAt ? ` • due ${new Date(q.dueAt).toLocaleString()}` : ""}</div>
+            <div className="text-xs text-gray-500 mt-1">{q.frequency}{q.dueAt ? ` • due ${new Date(q.dueAt).toLocaleString('sv-SE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}` : ""}</div>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={() => setCompleted(q.id, true)} title="Mark complete" className={`h-8 w-8 rounded-lg flex items-center justify-center border ${q.completed ? "bg-green-600 text-white border-green-600" : "border-gray-300"}`}>

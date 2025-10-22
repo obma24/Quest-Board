@@ -47,7 +47,6 @@ export default function QuestSections({ userId }: Props) {
     return () => window.removeEventListener("quests:changed", onRefresh);
   }, [userId]);
 
-  // Tick every 30s so approaching-deadline UI updates without reload
   useEffect(() => {
     const id = setInterval(() => setNowTs(Date.now()), 30000);
     return () => clearInterval(id);
@@ -108,7 +107,6 @@ export default function QuestSections({ userId }: Props) {
         next.delete(questId);
         return next;
       });
-      // ensure any late updates also reflected
       load();
     }, 600);
   }
@@ -193,7 +191,7 @@ export default function QuestSections({ userId }: Props) {
     if (isFuture(q)) return false;
     const ms = msUntilDue(q);
     if (ms === null) return false;
-    return ms > 0 && ms <= 2 * 60 * 60 * 1000; // within next 2 hours
+    return ms > 0 && ms <= 2 * 60 * 60 * 1000;
   }
 
   function formatRemaining(ms: number): string {
@@ -278,7 +276,6 @@ export default function QuestSections({ userId }: Props) {
     if (selected === "emoji") {
       const end = Date.now() + 1000;
       (function frame() {
-        // Fallback to colored circles; if using an extended build, we could add emojis via `emojis: [...]`
         confetti({ particleCount: 12, spread: 55, scalar: 1.2, shapes: ["circle"], ticks: 100, origin: { y: 0.1 } });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
@@ -317,7 +314,7 @@ export default function QuestSections({ userId }: Props) {
                   <div className="text-sm text-gray-600">{q.description}</div>
                   <div className="text-xs text-gray-500 mt-1">
                     <span className={`capitalize ${q.frequency === "DAILY" ? "text-blue-600" : q.frequency === "WEEKLY" ? "text-red-600" : "text-purple-600"}`}>{q.frequency.toLowerCase()}</span>
-                    {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString()}`}</span> : null}
+                    {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString('sv-SE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}`}</span> : null}
                     <span>{` • +${q.xp} XP • +${q.coins} coins`}</span>
                   </div>
                   {!q.completed && isDueSoon(q) ? (
@@ -401,7 +398,7 @@ export default function QuestSections({ userId }: Props) {
                           <div className="text-sm text-gray-600">{q.description}</div>
                           <div className="text-xs text-gray-500 mt-1">
                             <span className={`capitalize ${q.frequency === "DAILY" ? "text-blue-600" : q.frequency === "WEEKLY" ? "text-red-600" : "text-purple-600"}`}>{q.frequency.toLowerCase()}</span>
-                            {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString()}`}</span> : null}
+                            {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString('sv-SE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}`}</span> : null}
                             <span>{` • +${q.xp} XP • +${q.coins} coins`}</span>
                           </div>
                         </div>
@@ -446,7 +443,7 @@ export default function QuestSections({ userId }: Props) {
                           <div className="text-sm text-gray-600">{q.description}</div>
                           <div className="text-xs text-gray-500 mt-1">
                             <span className={`capitalize ${q.frequency === "DAILY" ? "text-blue-600" : q.frequency === "WEEKLY" ? "text-red-600" : "text-purple-600"}`}>{q.frequency.toLowerCase()}</span>
-                            {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString()}`}</span> : null}
+                            {q.dueAt ? <span>{` • due ${new Date(q.dueAt).toLocaleString('sv-SE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}`}</span> : null}
                             <span>{` • +${q.xp} XP • +${q.coins} coins`}</span>
                           </div>
                         </div>
