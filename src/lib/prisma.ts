@@ -5,7 +5,6 @@ const globalForPrisma = global as unknown as { prisma?: PrismaClient };
 if (!process.env.PRISMA_DISABLE_PREPARED_STATEMENTS) {
   process.env.PRISMA_DISABLE_PREPARED_STATEMENTS = "true";
 }
-// Always use the pooled DATABASE_URL at runtime; reserve DIRECT_DATABASE_URL for migrations/seeding only
 const resolvedDbUrl = process.env.DATABASE_URL;
 
 function addPgbouncerParam(urlString: string | undefined): string | undefined {

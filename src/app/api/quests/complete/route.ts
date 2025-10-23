@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     },
   });
   function getXpForLevel(level: number) {
+    if (level === 1) return 250;
     return 600 + (level * 200);
   }
   

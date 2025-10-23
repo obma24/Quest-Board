@@ -48,6 +48,7 @@ export default function ProfileCard({ userId }: Props) {
   const streak = data?.dailyStreak ?? 0;
   const earned = (data?.earnedBadges ?? []) as string[];
   function getXpForLevel(level: number) {
+    if (level === 1) return 250;
     return 600 + (level * 200);
   }
   const xpForNext = getXpForLevel(level);
